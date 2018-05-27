@@ -14,7 +14,26 @@ type tuple struct {
 func minPathSum(grid [][]int) int {
 	m := len(grid)
 	n := len(grid[0])
-	return op(grid,m-1,n-1)
+	return op2(grid,m,n)
+}
+
+func op2(a [][]int, m,n int) int{
+	for i:=1; i< m; i++ {
+		a[i][0] += a[i-1][0]
+	}
+	for i:=1; i< n; i++ {
+		a[0][i] += a[0][i-1]
+	}
+	for i:=1; i<m; i++ {
+		for j:=1; j<n; j++ {
+			if a[i-1][j] < a[i][j-1] {
+				a[i][j] += a[i-1][j]
+			} else {
+				a[i][j] += a[i][j-1]
+			}
+		}
+	}
+	return a[m-1][n-1]
 }
 
 func op(a [][]int, m,n int) int {
@@ -23,8 +42,8 @@ func op(a [][]int, m,n int) int {
 	l.PushBack(tuple{0,0})
 	for l.Len() != 0 {
 		if i != m && j != n {
-			l.PushBack(tuple{i,j+1})
 			l.PushBack(tuple{i+1,j})
+			l.PushBack(tuple{i,j+1})
 			sum += a[i][j]
 			j += 1
 		} else if i != m && j == n {
@@ -48,8 +67,7 @@ func op(a [][]int, m,n int) int {
 					break
 				}
 				s = l.Back().Value.(tuple)
-				if s.First + 1 != f.First && s.Second + 1 != f.Second {
-					l.Remove(l.Back())
+				if s.First - 1 == f.First && s.Second + 1 == f.Second {
 					i,j = s.First,s.Second
 					break
 				}
@@ -60,6 +78,9 @@ func op(a [][]int, m,n int) int {
 }
 
 func main() {
-	a := [][]int{{1, 3, 1}, {1, 5, 1}, {4, 2, 1}}
+	//[[1,2],[1,1]]
+	a := [][]int{{1,2}, {1,1}}
+	//str := fmt.Sprint(a)
+	//fmt.Println(str)
 	fmt.Println(minPathSum(a))
 }
