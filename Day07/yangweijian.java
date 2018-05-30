@@ -1,5 +1,3 @@
-package study;
-
 public class Day07 {
 
     private class ListNode {
