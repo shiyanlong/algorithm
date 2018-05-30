@@ -39,3 +39,24 @@ function mergeTwoLists(l1, l2){
     return l1;
 }
 console.log(mergeTwoLists(l1,l2));
+
+
+/*输入: 1->2->4->4->5->6->6
+输出: 1->4->5->6*/
+function deleteDuplicates(l1) {
+    var prev = l1;
+    var cur = l1;
+    var p = null;
+    while(cur){
+        p = cur.next;
+        if(prev.val === cur.val) {
+            prev.next = p;
+            cur = p;
+        }else {
+            prev = cur;
+            cur = p;
+        }
+    }
+    return l1;
+}
+console.log(deleteDuplicates(l1));

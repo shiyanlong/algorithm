@@ -8,11 +8,9 @@ function algo() {
     ];
     var M = grid.length;
     var N = grid[0].length;
-    // 填写最后一列
     for(var i=M-2; i>=0; i--){
         grid[i][N-1] += grid[i+1][N-1];
     }
-    // 填写最后一行
     for(var j=N-2; j>=0; j--){
         grid[M-1][j] += grid[M-1][j+1];
     }
@@ -21,6 +19,5 @@ function algo() {
             grid[i][j] += Math.min(grid[i+1][j], grid[i][j+1]);
         }
     return grid[0][0];
-
 }
 console.log(algo());
