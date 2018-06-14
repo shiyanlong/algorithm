@@ -45,7 +45,7 @@ public class Day16 {
                 }
             }
         }
-        return stack.size() == 0;
+        return stack.isEmpty();
     }
 
     @Test
